@@ -3,6 +3,6 @@
 return [
     'ecoflow' => [
         'driver' => 'session',
-        'provider' => 'users',
+        'provider' => 'eco-users',
     ]
 ];
