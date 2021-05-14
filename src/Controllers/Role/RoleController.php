@@ -5,6 +5,7 @@ namespace Ecoflow\Access\Controllers\Role;
 use Ecoflow\Access\Models\Role;
 use App\Http\Controllers\Controller;
 use Ecoflow\Access\Repositories\RoleRepository;
+use Ecoflow\Access\Requests\RoleRequest;
 use Illuminate\Database\Eloquent\Collection;
 
 class RoleController extends Controller
@@ -42,9 +43,9 @@ class RoleController extends Controller
      *
      * @return Role
      */
-    public function show($match): Role
+    public function show($id): Role
     {
-        return $this->roleRepository->find($match);
+        return $this->roleRepository->find($id);
     }
 
     /**
@@ -53,9 +54,21 @@ class RoleController extends Controller
      * @param array $attributes
      * @return Role
      */
-    public function create(array $attributes): Role
+    public function store(RoleRequest $request): Role
     {
-        return $this->roleRepository->create($attributes);
+        return $this->roleRepository->create($request->all());
+    }
+
+    /**
+     * create
+     *
+     * @param RoleRequest $request
+     * @param integer $id
+     * @return bool
+     */
+    public function update(RoleRequest $request, $id): bool
+    {
+        return $this->roleRepository->modify($id, $request->all());
     }
 
     /**
