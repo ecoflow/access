@@ -1,7 +1,7 @@
 {
   "name": "ecoflow/access",
   "version": "0.0.1",
-  "description": "Access for Ecoflow",
+  "description": "Access layer for Ecoflow system",
   "type": "package",
   "authors": [
     {
@@ -10,7 +10,6 @@
     }
   ],
   "minimum-stability": "dev",
-  "require": {},
   "autoload": {
     "psr-4": {
       "Ecoflow\\Access\\": "src/"
