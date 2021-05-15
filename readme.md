@@ -1,8 +1,10 @@
 # Ecoflow\Access
 The access layer of the Ecoflow system.
-Including: Users, Roles and Permissions
+Including: Authentication with laravel/sanctum, Users, Roles and Permissions.
 
 ### **--Changelog--**
-### **v0.0.1** 
-- 2021-04-15: Finish User & Role Controllers & Requests
-- 2021-04-15:
+### **v1.0.0**
+- 2021-05-15
+  - Manage users
+  - Manage roles
+  - Login / Logout with laravel/sanctum
