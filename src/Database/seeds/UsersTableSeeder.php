@@ -29,7 +29,7 @@ class UsersTableSeeder extends Seeder
             'name' => "Jrb",
             'email' => "jrb.youssef@gmail.com",
             'role_id' => 1,
-            'password' => Hash::make('123456'),
+            'password' => Hash::make('12345678'),
             'created_at' => Carbon::now(),
         ]);
 

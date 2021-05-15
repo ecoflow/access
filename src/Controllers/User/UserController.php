@@ -85,7 +85,7 @@ class UserController extends Controller
      * @param string $id
      * @return bool
      */
-    public function delete(string $id): bool
+    public function destroy(string $id): bool
     {
         return $this->repository->delete($id);
     }

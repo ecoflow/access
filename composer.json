@@ -1,6 +1,6 @@
 {
   "name": "ecoflow/access",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Access layer for Ecoflow system",
   "type": "package",
   "authors": [
@@ -9,7 +9,6 @@
       "email": "jrb.youssef@gmail.com"
     }
   ],
-  "minimum-stability": "dev",
   "autoload": {
     "psr-4": {
       "Ecoflow\\Access\\": "src/"
@@ -18,8 +17,12 @@
   "extra": {
     "laravel": {
       "providers": [
-        "Ecoflow\\Access\\AccessServiceProvider"
+        "Ecoflow\\Access\\AccessServiceProvider",
+        "Laravel\\Sanctum\\SanctumServiceProvider"
       ]
     }
+  },
+  "require": {
+    "laravel/sanctum": "^2.11"
   }
 }

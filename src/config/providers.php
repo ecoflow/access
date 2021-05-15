@@ -3,6 +3,6 @@
 return [
     'eco-users' => [
         'driver' => 'eloquent',
-        'model' => Ecoflow\Auth\Models\User::class,
-    ]
+        'model' => Ecoflow\Access\Models\User::class,
+    ],
 ];

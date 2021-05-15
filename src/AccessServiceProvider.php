@@ -3,6 +3,7 @@
 namespace Ecoflow\Access;
 
 use Illuminate\Support\ServiceProvider;
+// use Laravel\Sanctum as Sanctum;
 
 class AccessServiceProvider extends ServiceProvider
 {
@@ -15,6 +16,7 @@ class AccessServiceProvider extends ServiceProvider
     {
         $this->mergeGuards();
         $this->mergeProviders();
+        $this->setDefaultAuth();
     }
 
     /**
@@ -42,7 +44,6 @@ class AccessServiceProvider extends ServiceProvider
         );
     }
 
-
     /**
      * Merge Ecoflow Providers
      */
@@ -52,6 +53,20 @@ class AccessServiceProvider extends ServiceProvider
             __DIR__ . '/config/providers.php',
             'auth.providers'
         );
+    }
+
+    /**
+     * Set the default authentication to Ecoflow guard!
+     *
+     * @return void
+     */
+    public function setDefaultAuth()
+    {
+        // TODO: Write me better
+        config()->set('auth.defaults', [
+            'guard' => 'ecoflow',
+            'passwords' => 'users',
+        ]);
     }
 
 }

@@ -1,17 +1,16 @@
 <?php
 
+use Ecoflow\Access\Controllers\Auth\AuthController;
 use Illuminate\Support\Facades\Route;
 use Ecoflow\Access\Controllers\Role\RoleController;
+use Ecoflow\Access\Controllers\User\UserController;
 
-Route::group(['namespace' => 'Ecoflow\Access\Controllers\Auth', 'middleware' => 'web'], function () {
-    Route::post('register', 'RegisterController@register');
+// Route::post('register', [RegisterController::class, 'register']);
+Route::post('login', [AuthController::class, 'login']);
 
-    Route::post('login', 'LoginController@login');
+Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::post('logout', [AuthController::class, 'logout']);
 
-    Route::post('logout', 'LoginController@logout');
-
-});
-
-Route::group(['middleware' => 'web'], function () {
     Route::resource('role', RoleController::class);
+    Route::resource('user', UserController::class);
 });
