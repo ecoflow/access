@@ -4,7 +4,7 @@ namespace Ecoflow\Access\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserRequest extends FormRequest
+class UserUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,10 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:3|max:16',
-            'email' => 'required|email|unique:users,email',
-            'role_id' => 'required',
-            'password' => 'required|min:8|confirmed',
+            'name' => 'sometimes|nullable|min:3|max:16',
+            'email' => 'sometimes|nullable|email|unique:users,email',
+            'role_id' => 'sometimes|nullable',
+            'password' => 'sometimes|nullable|min:8|confirmed',
         ];
     }
 }

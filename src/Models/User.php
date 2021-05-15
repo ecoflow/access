@@ -5,7 +5,6 @@ namespace Ecoflow\Access\Models;
 use Ecoflow\Access\Models\Role;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -38,6 +37,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * With easter loading
+     * @var array
+     */
+    protected $with = ['role'];
 
     /**
      * User BelongsTo Role.

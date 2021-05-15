@@ -2,7 +2,6 @@
 
 namespace Ecoflow\Access\Controllers\Role;
 
-use Ecoflow\Access\Models\Role;
 use App\Http\Controllers\Controller;
 use Ecoflow\Access\Repositories\RoleRepository;
 use Ecoflow\Access\Requests\RoleRequest;
@@ -10,13 +9,12 @@ use Illuminate\Database\Eloquent\Collection;
 
 class RoleController extends Controller
 {
-
     /**
      * Role repository
      *
      * @var RoleController
      */
-    protected RoleRepository $roleRepository;
+    protected RoleRepository $repository;
 
     /**
      * __construct
@@ -25,38 +23,47 @@ class RoleController extends Controller
      */
     public function __construct()
     {
-        $this->roleRepository = new RoleRepository();
+        $this->repository = new RoleRepository();
     }
 
     /**
      * Return all records
      *
-     * @return Collection
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function index(): Collection
+    public function index(): \Illuminate\Http\JsonResponse
     {
-        return $this->roleRepository->all();
+        return response()->json([
+            'success' => true,
+            'data' => $this->repository->all(),
+        ]);
     }
 
     /**
      * Show a record
      *
-     * @return Role
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id): Role
+    public function show($id): \Illuminate\Http\JsonResponse
     {
-        return $this->roleRepository->find($id);
+        return response()->json([
+            'success' => true,
+            'data' => $this->repository->find($id),
+        ]);
     }
 
     /**
      * create
      *
      * @param array $attributes
-     * @return Role
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function store(RoleRequest $request): Role
+    public function store(RoleRequest $request): \Illuminate\Http\JsonResponse
     {
-        return $this->roleRepository->create($request->all());
+        return response()->json([
+            'success' => true,
+            'data' => $this->repository->create($request->all()),
+        ]);
     }
 
     /**
@@ -64,21 +71,27 @@ class RoleController extends Controller
      *
      * @param RoleRequest $request
      * @param integer $id
-     * @return bool
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(RoleRequest $request, $id): bool
+    public function update(RoleRequest $request, $id): \Illuminate\Http\JsonResponse
     {
-        return $this->roleRepository->modify($id, $request->all());
+        return response()->json([
+            'success' => true,
+            'data' => $this->repository->modify($id, $request->all()),
+        ]);
     }
 
     /**
      * delete
      *
      * @param string $id
-     * @return bool
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function delete(string $id): bool
+    public function destroy(string $id): \Illuminate\Http\JsonResponse
     {
-        return $this->roleRepository->delete($id);
+        return response()->json([
+            'success' => true,
+            'data' => $this->repository->delete($id),
+        ]);
     }
 }

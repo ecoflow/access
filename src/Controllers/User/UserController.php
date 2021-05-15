@@ -5,8 +5,9 @@ namespace Ecoflow\Access\Controllers\User;
 use Ecoflow\Access\Models\User;
 use App\Http\Controllers\Controller;
 use Ecoflow\Access\Requests\UserRequest;
-use Illuminate\Database\Eloquent\Collection;
 use Ecoflow\Access\Repositories\UserRepository;
+use Ecoflow\Access\Requests\UserUpdateRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -32,30 +33,36 @@ class UserController extends Controller
     /**
      * Return all records
      *
-     * @return Collection
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function index(): Collection
+    public function index(): \Illuminate\Http\JsonResponse
     {
-        return $this->repository->all();
+        return response()->json([
+            'success' => true,
+            'data' => $this->repository->all(),
+        ]);
     }
 
     /**
      * Show a record
      *
-     * @return User
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id): User
+    public function show($id): \Illuminate\Http\JsonResponse
     {
-        return $this->repository->find($id);
+        return response()->json([
+            'success' => true,
+            'data' => $this->repository->find($id),
+        ]);
     }
 
     /**
      * create
      *
      * @param array $attributes
-     * @return User
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function store(UserRequest $request): User
+    public function store(UserRequest $request): \Illuminate\Http\JsonResponse
     {
         $data = [
             'name' => $request->name,
@@ -64,7 +71,10 @@ class UserController extends Controller
             'role_id' => $request->role_id,
         ];
 
-        return $this->repository->create($data);
+        return response()->json([
+            'success' => true,
+            'data' => $this->repository->create($data),
+        ]);
     }
 
     /**
@@ -72,21 +82,34 @@ class UserController extends Controller
      *
      * @param UserRequest $request
      * @param integer $id
-     * @return bool
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(UserRequest $request, $id): bool
+    public function update(UserUpdateRequest $request, $id): \Illuminate\Http\JsonResponse
     {
-        return $this->repository->modify($id, $request->all());
+        $data = $request->all();
+        // validation manually
+        if ($request->password) {
+            $data['password'] = Hash::make($request->password);
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => $this->repository->modify($id, $data),
+        ]);
     }
 
     /**
      * delete
      *
      * @param string $id
-     * @return bool
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(string $id): bool
+    public function destroy(string $id): \Illuminate\Http\JsonResponse
     {
-        return $this->repository->delete($id);
+        $deleted = $this->repository->delete($id);
+        return response()->json([
+            'success' => $deleted ? true : false,
+            'data' => $deleted ? true : false,
+        ]);
     }
 }
